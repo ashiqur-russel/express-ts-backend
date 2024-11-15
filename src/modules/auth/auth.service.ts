@@ -19,9 +19,14 @@ export class AuthService {
     password: string
   ): Promise<IPublicUser> {
     const existingUser = await User.findOne({ email });
+    const existingUserWithUsername = await User.findOne({ username });
 
-    if (existingUser) {
+    if (existingUser?.email === email) {
       throw new Error("Email is already registered.");
+    }
+
+    if (existingUserWithUsername?.username === username) {
+      throw new Error("Username is already taken.");
     }
 
     const newUser = new User({
