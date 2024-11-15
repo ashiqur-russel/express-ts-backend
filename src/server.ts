@@ -3,15 +3,17 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { registerRoutes } from "./modules";
+import connectDatabase from "./config/database";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
 app.use(cors());
 app.use(bodyParser.json());
+
+connectDatabase();
 
 app.get("/", (req, res) => {
   res.send("Server is up and running!");
