@@ -24,10 +24,17 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 router.post("/register", async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
   try {
-    const message = await authService.register(username, password);
-    res.status(201).json({ message });
+    const newUser = await authService.register(username, email, password);
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
   } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
