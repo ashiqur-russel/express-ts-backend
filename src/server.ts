@@ -1,14 +1,25 @@
-import { Server } from "http";
-import app from "./app";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import { registerRoutes } from "./modules";
 
-const PORT = 5000;
+dotenv.config();
 
-let server: Server;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-async function main() {
-  server = app.listen(PORT, () => {
-    console.log(`[server]: Sehellorver is running at http://localhost:${PORT}`);
-  });
-}
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
 
-main();
+app.get("/", (req, res) => {
+  res.send("Server is up and running!");
+});
+
+// Register Module Routes
+registerRoutes(app);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
