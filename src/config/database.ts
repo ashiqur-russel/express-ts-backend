@@ -4,7 +4,7 @@ const connectDatabase = async () => {
   const MONGO_URI = process.env.MONGO_URI;
 
   if (!MONGO_URI) {
-    throw new Error("Environment variable MONGO_URI is not set");
+    throw new Error("Mongo URI is unavailable");
   }
 
   try {

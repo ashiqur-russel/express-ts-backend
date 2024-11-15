@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { registerRoutes } from "./modules";
 import connectDatabase from "./config/database";
+import { Logger } from "./middlewares/logger";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(Logger);
 
 connectDatabase();
 
