@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { IUser, IPublicUser, User } from "../user/user.model";
+import bcrypt from "bcryptjs";
 
 export class AuthService {
   async login(username: string, password: string): Promise<string> {
@@ -29,10 +30,13 @@ export class AuthService {
       throw new Error("Username is already taken.");
     }
 
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync("B4c0//", salt);
+
     const newUser = new User({
       username,
       email,
-      password,
+      password: hashedPassword,
     });
 
     await newUser.save();
