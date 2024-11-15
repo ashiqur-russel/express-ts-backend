@@ -1,13 +1,36 @@
-import { Request, Response } from "express";
+import { Router, Request, Response } from "express";
+import { AuthService } from "./auth.service";
 
-export const login = (req: Request, res: Response) => {
-  res.send("Login successful");
-};
+const router = Router();
+const authService = new AuthService();
 
-export const register = (req: Request, res: Response) => {
-  res.send("Registration successful");
-};
+router.get("", async (req: Request, res: Response) => {
+  try {
+    const message = await authService.getAuth();
+    res.status(200).json({ message });
+  } catch (error: any) {
+    res.status(401).json({ message: error.message });
+  }
+});
 
-export const all = (req: Request, res: Response) => {
-  res.send("server is up");
-};
+router.post("/login", async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  try {
+    const token = await authService.login(username, password);
+    res.status(200).json({ token });
+  } catch (error: any) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
+router.post("/register", async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  try {
+    const message = await authService.register(username, password);
+    res.status(201).json({ message });
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+export default router;
