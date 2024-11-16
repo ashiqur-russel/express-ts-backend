@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { IUser, IPublicUser, User } from "../user/user.model";
 import bcrypt from "bcryptjs";
+import config from "../../config";
 
 export class AuthService {
   async login(email: string, password: string): Promise<string> {
@@ -17,7 +18,7 @@ export class AuthService {
 
     const token = jwt.sign(
       { id: user._id, email: user.email, username: user.username },
-      process.env.JWT_SECRET || "secret",
+      config.jwt_secret_key || "secret",
       { expiresIn: "1h" }
     );
 
