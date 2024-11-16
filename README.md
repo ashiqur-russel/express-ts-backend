@@ -29,6 +29,11 @@ The code structure and middleware are designed for scalability and maintainabili
 ```
 src/
 ├── modules/
+│   ├── auth/
+│   │   ├── auth.controller.ts   # Controller for authentication routes
+│   │   ├── auth.service.ts      # Business logic for authentication
+│   │   ├── auth.routes.ts       # Authentication routes definition
+│   │   ├── auth.routes.ts       # Auth routes definition
 │   ├── user/
 │   │   ├── user.model.ts        # Mongoose schema and user model
 │   │   ├── user.service.ts      # User-related services (e.g., fetching users)
@@ -43,7 +48,29 @@ src/
 │   ├── database.ts              # MongoDB connection setup
 ├── app.ts                       # Express app setup
 ├── server.ts                    # Application entry point
+
 ```
+
+## API Endpoints
+# Authentication
+ **Login**
+ - POST /auth/login
+ - Requesr Body
+    ```bash
+    {
+  "email": "admin@example.com",
+  "password": "password123"
+    }
+
+    ```
+ - Response
+    ```bash
+    {
+  "message": "Login successful",
+  "token": "jwt_token_here"
+   }
+```
+
 
 ## Setup and Installation
 
