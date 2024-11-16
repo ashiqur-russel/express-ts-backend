@@ -15,7 +15,7 @@ export const RouteGurad = async (
   try {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
-      res.status(401).json({ message: "Unauthorized: No token provided" });
+      res.status(401).json({ message: "Unauthorized to access!" });
       return;
     }
 
@@ -36,26 +36,4 @@ export const RouteGurad = async (
   } catch (error) {
     res.status(401).json({ message: "Unauthorized: Invalid token" });
   }
-};
-
-export const RoleGuard = (...allowedRoles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    const user = (req as any).user;
-
-    if (!user) {
-      res
-        .status(403)
-        .json({ message: "Access denied: User not authenticated" });
-      return;
-    }
-
-    if (!allowedRoles.includes(user.userType)) {
-      res.status(403).json({
-        message: `Access restricted to roles: ${allowedRoles.join(", ")}`,
-      });
-      return;
-    }
-
-    next();
-  };
 };

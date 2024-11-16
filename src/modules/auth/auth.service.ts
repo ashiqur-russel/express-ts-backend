@@ -59,7 +59,7 @@ export class AuthService {
     return userWithoutPassword;
   }
 
-  async getAuth() {
-    return "Auth route";
+  async getAuthMessage() {
+    return "Auth route check";
   }
 }
