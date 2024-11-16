@@ -52,25 +52,46 @@ src/
 ```
 
 ## API Endpoints
-# Authentication
+ **Register New User**
+ - POST /auth/register
+ - Requesr Body
+   
+```bash
+    {
+     "username": "testuser",
+     "email": "testuser@example.com",
+     "password": "password123"
+    }
+```
+ - Response
+```bash
+    {        
+     "message": "User registered successfully",
+     "user": {
+       "id": "63c8b9d4e20e8b12a0123456",
+       "username": "testuser",
+       "email": "testuser@example.com"
+      }
+    }
+```
  **Login**
  - POST /auth/login
  - Requesr Body
-    ```bash
+   
+```bash
     {
-  "email": "admin@example.com",
-  "password": "password123"
+      "email": "admin@example.com",
+      "password": "password123"
     }
-
-    ```
- - Response
-    ```bash
-    {
-  "message": "Login successful",
-  "token": "jwt_token_here"
-   }
 ```
-
+ - Response
+```bash
+    {     
+      "message": "Login successful",
+      "token": "jwt_token_here"
+    }
+```
+  
 
 ## Setup and Installation
 
