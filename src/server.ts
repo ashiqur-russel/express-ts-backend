@@ -3,7 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { registerRoutes } from "./modules";
-import connectDatabase from "./config/database";
+import connectDatabase from "./config/database.config";
 import { Logger } from "./middlewares/logger";
 
 dotenv.config();

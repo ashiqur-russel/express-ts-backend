@@ -14,10 +14,11 @@ router.get("", async (req: Request, res: Response) => {
 });
 
 router.post("/login", async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
+
   try {
-    const token = await authService.login(username, password);
-    res.status(200).json({ token });
+    const token = await authService.login(email, password);
+    res.status(200).json({ message: "Login successful", token });
   } catch (error: any) {
     res.status(401).json({ message: error.message });
   }

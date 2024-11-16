@@ -3,15 +3,25 @@ import { IUser, IPublicUser, User } from "../user/user.model";
 import bcrypt from "bcryptjs";
 
 export class AuthService {
-  async login(username: string, password: string): Promise<string> {
-    if (username === "admin" && password === "password") {
-      const token = jwt.sign({ username }, process.env.JWT_SECRET || "secret", {
-        expiresIn: "1h",
-      });
-      return token;
-    } else {
+  async login(email: string, password: string): Promise<string> {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
       throw new Error("Invalid credentials");
     }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email, username: user.username },
+      process.env.JWT_SECRET || "secret",
+      { expiresIn: "1h" }
+    );
+
+    return token;
   }
 
   async register(
@@ -30,8 +40,7 @@ export class AuthService {
       throw new Error("Username is already taken.");
     }
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync("B4c0//", salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       username,
