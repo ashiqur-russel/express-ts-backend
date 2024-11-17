@@ -1,4 +1,5 @@
 import { IUser } from '../user/user.interface';
+import mongoose from 'mongoose';
 
 export interface IGuardianInfo {
   fatherName: string;
@@ -7,5 +8,6 @@ export interface IGuardianInfo {
 }
 
 export interface IStudent extends IUser {
+  userId: mongoose.Types.ObjectId;
   guardianInfo: IGuardianInfo;
 }

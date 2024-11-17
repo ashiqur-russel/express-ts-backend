@@ -9,12 +9,17 @@ export const getAuthMessage = async (req: Request, res: Response) => {
     const message = await authService.getAuthMessage();
     res.status(200).json({ message });
   } catch (error: any) {
-    res.status(401).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
 export const userLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({ message: 'Email and password are required' });
+    return;
+  }
 
   try {
     const token = await authService.login(email, password);
@@ -25,9 +30,24 @@ export const userLogin = async (req: Request, res: Response) => {
 };
 
 export const registerNewUser = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role, name } = req.body;
+
+  if (
+    !username ||
+    !email ||
+    !password ||
+    !role ||
+    !name?.firstName ||
+    !name?.lastName
+  ) {
+    res.status(400).json({
+      message:
+        'Username, email, password, role, and name (with firstName and lastName) are required',
+    });
+  }
+
   try {
-    await authService.register(username, email, password);
+    await authService.register(username, email, password, role, name);
     res.status(201).json({
       message: 'User registered successfully',
     });
