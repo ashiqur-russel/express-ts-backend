@@ -6,23 +6,23 @@ The code structure and middleware are designed for scalability and maintainabili
 
 ## Features ( So far )
 
- - JWT Authentication for secure login and role validation.
- - Role-Based Access Control:
- - Roles include admin, testUser, and guestUser. ( testing purpose )
- - Access restrictions implemented with custom middleware.
- - User data is stored in MongoDB using Mongoose.
- - Passwords are hashed using bcryptjs.
- - Scalable Project Structure for modularity and readability.
+- JWT Authentication for secure login and role validation.
+- Role-Based Access Control:
+- Roles include admin, testUser, and guestUser. ( testing purpose )
+- Access restrictions implemented with custom middleware.
+- User data is stored in MongoDB using Mongoose.
+- Passwords are hashed using bcryptjs.
+- Scalable Project Structure for modularity and readability.
 
 ## Technologies Used
 
- - Node.js: Runtime environment.
- - Express.js: Framework for RESTful API development.
- - TypeScript: Type-safe development.
- - Mongoose: ODM for MongoDB.
- - JWT (jsonwebtoken): Secure token-based authentication.
- - bcryptjs: Password hashing and validation.
- - Dotenv: Environment variable management.
+- Node.js: Runtime environment.
+- Express.js: Framework for RESTful API development.
+- TypeScript: Type-safe development.
+- Mongoose: ODM for MongoDB.
+- JWT (jsonwebtoken): Secure token-based authentication.
+- bcryptjs: Password hashing and validation.
+- Dotenv: Environment variable management.
 
 ## Project Structure ( Basic )
 
@@ -52,10 +52,12 @@ src/
 ```
 
 ## API Endpoints
- **Register New User**
- - POST /auth/register
- - Requesr Body
-   
+
+**Register New User**
+
+- POST /auth/register
+- Requesr Body
+
 ```bash
     {
      "username": "testuser",
@@ -63,9 +65,11 @@ src/
      "password": "password123"
     }
 ```
- - Response
+
+- Response
+
 ```bash
-    {        
+    {
      "message": "User registered successfully",
      "user": {
        "id": "63c8b9d4e20e8b12a0123456",
@@ -74,33 +78,70 @@ src/
       }
     }
 ```
- **Login**
- - POST /auth/login
- - Requesr Body
-   
+
+**Login**
+
+- POST /auth/login
+- Requesr Body
+
 ```bash
     {
       "email": "admin@example.com",
       "password": "password123"
     }
 ```
- - Response
+
+- Response
+
 ```bash
-    {     
+    {
       "message": "Login successful",
       "token": "jwt_token_here"
     }
 ```
-  
+
+**Fetch All Users**
+
+- Method: GET
+- Endpoint: /users
+- Access: Restricted to admin users.
+- How to Access:
+  - Use the /auth/login endpoint with a registered user.
+  - Copy the returned jwt_token.
+  - Add the token as a Bearer Token in Postman or your API client under the Authorization header.
+  - Ensure the logged-in user's role is admin. If the role is not admin, you will receive an "Access restricted" message.
+    -Sample Response (For an admin user):
+
+```json
+{
+  "users": [
+    { "username": "user1", "email": "user1@example.com" },
+    { "username": "user2", "email": "user2@example.com" }
+  ]
+}
+```
+
+- Error Response ( Without Token ):
+
+```json
+{ "message": "Unauthorized to access!" }
+```
+
+- Error Response ( if Role is not `admin` ):
+
+```json
+{ "message": "Access restricted." }
+```
 
 ## Setup and Installation
 
 1.Clone the Repository
 
-``` bash
+```bash
 git clone < this project repository >
 cd <folder name>
 ```
+
 2.Install Dependencies
 
 ```bash
@@ -114,12 +155,10 @@ PORT= <any port number here e.g: 5000>
 MONGO_URI= <here mongodb atlas uri>
 JWT_SECRET= <your_secret_key>
 
-````
+```
 
 4. Build and Run To start the development server on localhost
-   
+
 ```
 npm run start:dev
 ```
-
-
