@@ -1,11 +1,13 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-import { registerRoutes } from "./modules";
-import connectDatabase from "./config/database.config";
-import { Logger } from "./middlewares/logger";
-import config from "./config";
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import { registerRoutes } from './modules';
+import connectDatabase from './config/database.config';
+import { Logger } from './middlewares/logger';
+import config from './config';
+import { AuthGuard } from './guard/auth.guard';
+import { RoleGuard } from './guard/role.guard';
 
 dotenv.config();
 
@@ -18,8 +20,13 @@ app.use(Logger);
 
 connectDatabase();
 
-app.get("/", (req, res) => {
-  res.send("Server is up and running!");
+app.get('/', (req, res) => {
+  res.send('Server is up and running!');
+});
+
+// this route is testing purpose to check Authguard and Role Guard
+app.get('/admin', AuthGuard, RoleGuard('admin'), (req, res) => {
+  res.json({ message: 'Welcome, admin!' });
 });
 
 // Register Module Routes

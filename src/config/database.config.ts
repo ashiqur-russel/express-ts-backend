@@ -2,11 +2,7 @@ import mongoose from "mongoose";
 import config from ".";
 
 const connectDatabase = async () => {
-  const MONGO_URI = config.database_url;
-
-  if (!MONGO_URI) {
-    throw new Error("Mongo URI is unavailable");
-  }
+  const MONGO_URI = config.database_url as string;
 
   try {
     await mongoose.connect(MONGO_URI);
