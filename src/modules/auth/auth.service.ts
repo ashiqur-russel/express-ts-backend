@@ -1,25 +1,25 @@
-import jwt from "jsonwebtoken";
-import { IUser, IPublicUser, User } from "../user/user.model";
-import bcrypt from "bcryptjs";
-import config from "../../config";
+import jwt from 'jsonwebtoken';
+import { IUser, IPublicUser, User } from '../user/user.model';
+import bcrypt from 'bcryptjs';
+import config from '../../config';
 
 export class AuthService {
   async login(email: string, password: string): Promise<string> {
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error("User not found");
+      throw new Error('User not found');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new Error("Invalid credentials");
+      throw new Error('Invalid credentials');
     }
 
     const token = jwt.sign(
       { id: user._id, email: user.email, username: user.username },
-      config.jwt_secret_key || "secret",
-      { expiresIn: "1h" }
+      config.jwt_secret_key || 'secret',
+      { expiresIn: '1h' },
     );
 
     return token;
@@ -28,17 +28,17 @@ export class AuthService {
   async register(
     username: string,
     email: string,
-    password: string
+    password: string,
   ): Promise<IPublicUser> {
     const existingUser = await User.findOne({ email });
     const existingUserWithUsername = await User.findOne({ username });
 
     if (existingUser?.email === email) {
-      throw new Error("Email is already registered.");
+      throw new Error('Email is already registered.');
     }
 
     if (existingUserWithUsername?.username === username) {
-      throw new Error("Username is already taken.");
+      throw new Error('Username is already taken.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,6 +61,6 @@ export class AuthService {
   }
 
   async getAuthMessage() {
-    return "Auth route check";
+    return 'Auth route check';
   }
 }

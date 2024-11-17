@@ -1,4 +1,4 @@
-import { IUser, User } from "./user.model";
+import { IUser, User } from './user.model';
 
 export class UserService {
   constructor() {}
@@ -8,6 +8,6 @@ export class UserService {
   }
 
   async checkUserType() {
-    const user = await User.findById("d");
+    const user = await User.findById('d');
   }
 }

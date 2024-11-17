@@ -1,11 +1,11 @@
 {
-	"folders": [
-		{
-			"path": "../../../Docker/Docket-First"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../../Docker/Docket-First",
+    },
+    {
+      "path": "..",
+    },
+  ],
+  "settings": {},
 }
