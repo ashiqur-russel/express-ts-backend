@@ -1,29 +1,19 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
+import { IUser } from './user.interface';
 
-export interface IUser extends Document {
-  _id: mongoose.Types.ObjectId;
-  username: string;
-  email: string;
-  role?: string;
-  isRegisterd?: boolean;
-  password: string;
-  createdAt?: Date;
-}
+export interface IUserDocument extends IUser, Document {}
 
-export interface IPublicUser {
-  _id?: string;
-  username?: string;
-  email?: string;
-  createdAt?: Date;
-}
-
-const UserSchema: Schema = new Schema<IUser>({
-  username: { type: String, required: true, unique: true },
+const UserSchema: Schema<IUserDocument> = new Schema({
+  username: { type: String, required: true },
+  name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  role: { type: String, required: false, default: 'testUser' },
-  isRegisterd: { type: Boolean, required: true, default: true },
   password: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+  role: { type: String, enum: ['student', 'tutor', 'admin'], required: true },
+  bloogGroup: {
+    type: String,
+    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+  },
+  address: { type: String },
 });
 
-export const User = mongoose.model<IUser>('User', UserSchema);
+export const User = mongoose.model<IUserDocument>('User', UserSchema);

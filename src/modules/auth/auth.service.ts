@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IPublicUser, User } from '../user/user.model';
+import { User } from '../user/user.model';
 import bcrypt from 'bcryptjs';
 import config from '../../config';
 
@@ -17,7 +17,7 @@ export class AuthService {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email, username: user.username },
+      { id: user._id, email: user.email },
       config.jwt_secret_key || 'secret',
       { expiresIn: '1h' },
     );
@@ -29,7 +29,7 @@ export class AuthService {
     username: string,
     email: string,
     password: string,
-  ): Promise<IPublicUser> {
+  ): Promise<void> {
     const existingUser = await User.findOne({ email });
     const existingUserWithUsername = await User.findOne({ username });
 
@@ -50,14 +50,6 @@ export class AuthService {
     });
 
     await newUser.save();
-
-    const userWithoutPassword: IPublicUser = {
-      _id: newUser._id.toString(),
-      username: newUser.username,
-      email: newUser.email,
-      createdAt: newUser.createdAt,
-    };
-    return userWithoutPassword;
   }
 
   async getAuthMessage() {
