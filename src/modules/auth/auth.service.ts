@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IUser, IPublicUser, User } from '../user/user.model';
+import { IPublicUser, User } from '../user/user.model';
 import bcrypt from 'bcryptjs';
 import config from '../../config';
 
