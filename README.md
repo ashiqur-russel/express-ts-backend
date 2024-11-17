@@ -57,19 +57,19 @@ The following diagram represents the flow of data and interactions in the backen
 
 ```plaintext
    ┌──────────────┐
-   │   Interface   │
+   │   Interface  │
    └──────────────┘
            ↓
    ┌──────────────┐
-   │    Schema     │
+   │    Schema    │
    └──────────────┘
            ↓
    ┌──────────────┐
-   │     Model     │
+   │     Model    │
    └──────────────┘
            ↓
    ┌──────────────┐
-   │   DB Query    │
+   │   DB Query   │
    └──────────────┘
            ↓
      Step-by-Step
