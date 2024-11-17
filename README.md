@@ -51,6 +51,31 @@ src/
 
 ```
 
+## **How It Works**
+
+The following diagram represents the flow of data and interactions in the backend:
+
+```plaintext
+   ┌──────────────┐
+   │   Interface   │
+   └──────────────┘
+           ↓
+   ┌──────────────┐
+   │    Schema     │
+   └──────────────┘
+           ↓
+   ┌──────────────┐
+   │     Model     │
+   └──────────────┘
+           ↓
+   ┌──────────────┐
+   │   DB Query    │
+   └──────────────┘
+           ↓
+     Step-by-Step
+           ↑
+```
+
 ## API Endpoints
 
 **Register New User**
