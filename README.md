@@ -30,25 +30,36 @@ The code structure and middleware are designed for scalability and maintainabili
 src/
 ├── modules/
 │   ├── auth/
-│   │   ├── auth.controller.ts   # Controller for authentication routes
-│   │   ├── auth.service.ts      # Business logic for authentication
-│   │   ├── auth.routes.ts       # Authentication routes definition
-│   │   ├── auth.routes.ts       # Auth routes definition
+│   │   ├── auth.controller.ts    # Controller for authentication routes
+│   │   ├── auth.service.ts       # Business logic for authentication
+│   │   ├── auth.routes.ts        # Authentication routes definition
 │   ├── user/
-│   │   ├── user.model.ts        # Mongoose schema and user model
-│   │   ├── user.service.ts      # User-related services (e.g., fetching users)
-│   │   ├── user.controller.ts   # Controller for user routes
-│   │   ├── user.routes.ts       # User routes definition
+│   │   ├── user.model.ts         # Mongoose schema and user model
+│   │   ├── user.interface.ts     # User interface definition
+│   │   ├── user.service.ts       # User-related services
+│   │   ├── user.controller.ts    # Controller for user routes
+│   │   ├── user.routes.ts        # User routes definition
+│   ├── student/
+│   │   ├── student.model.ts      # Mongoose schema for students
+│   │   ├── student.interface.ts  # Student interface definition
+│   │   ├── student.service.ts    # Business logic for students
+│   │   ├── student.controller.ts # Controller for student-specific routes
+│   ├── tutor/
+│   │   ├── tutor.model.ts        # Mongoose schema for tutors
+│   │   ├── tutor.interface.ts    # Tutor interface definition
+│   │   ├── tutor.service.ts      # Business logic for tutors
+│   │   ├── tutor.controller.ts   # Controller for tutor-specific routes
+│   ├── (Other modules will be here ...)/
 ├── middlewares/
-│   ├── logger.middleware.ts     # Middleware for logging route methods
+│   ├── logger.middleware.ts      # Middleware for logging route methods
 ├── guards/
-│   ├── auth.guard.ts            # Middleware for authentication (protect routes)
-│   ├── role.guard.ts            # Middleware for role-based route protection
+│   ├── auth.guard.ts             # Middleware for authentication
+│   ├── role.guard.ts             # Middleware for role-based route protection
 ├── config/
-│   ├── database.ts              # MongoDB connection setup
-├── app.ts                       # Express app setup
-├── server.ts                    # Application entry point
-
+│   ├── database.ts               # MongoDB connection setup
+│   ├── index.ts                  # environment variable setup
+├── app.ts                        # Express app setup
+├── server.ts                     # Application entry point
 ```
 
 ## **How It Works**
@@ -57,9 +68,8 @@ The following diagram represents the flow of data and interactions in the backen
 
 ```plaintext
     ┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-    │   Interface  │ →  │    Schema    │ →  │     Model      →  │   DB Query   │
+    │   Interface  │ →  │    Schema    │ →  │     Model    │ →  │   DB Query   │
     └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
-
 ```
 
 ## API Endpoints
@@ -69,25 +79,36 @@ The following diagram represents the flow of data and interactions in the backen
 - POST /auth/register
 - Requesr Body
 
-```bash
-    {
-     "username": "testuser",
-     "email": "testuser@example.com",
-     "password": "password123"
-    }
+```json
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123",
+  "role": "student",
+  "name": {
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
 ```
 
-- Response
+- Response ( student role)
 
-```bash
-    {
-     "message": "User registered successfully",
-     "user": {
-       "id": "63c8b9d4e20e8b12a0123456",
-       "username": "testuser",
-       "email": "testuser@example.com"
-      }
+```json
+{
+  "message": "User registered successfully",
+  "user": {
+    "id": "63c8b9d4e20e8b12a0123456",
+    "username": "testuser",
+    "email": "testuser@example.com",
+    "role": "student",
+    "guardianInfo": {
+      "fatherName": null,
+      "motherName": null,
+      "contactNo": null
     }
+  }
+}
 ```
 
 **Login**
