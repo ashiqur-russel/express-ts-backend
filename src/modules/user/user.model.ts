@@ -13,6 +13,16 @@ const UserSchema: Schema<IUserDocument> = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  gender: { type: String, enum: ['male', 'female'], required: true },
+  dateOfBirth: { type: String, required: false },
+  contactNo: { type: String, required: false },
+  isActive: {
+    type: String,
+    enum: ['active', 'blocked', 'inactive'],
+    required: false,
+    default: 'active',
+  },
+  emergencyContactNo: { type: String, required: false },
   role: {
     type: String,
     enum: ['student', 'tutor', 'admin'],

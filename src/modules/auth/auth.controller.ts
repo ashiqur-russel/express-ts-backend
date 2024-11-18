@@ -30,24 +30,11 @@ export const userLogin = async (req: Request, res: Response) => {
 };
 
 export const registerNewUser = async (req: Request, res: Response) => {
-  const { username, email, password, role, name } = req.body;
-
-  if (
-    !username ||
-    !email ||
-    !password ||
-    !role ||
-    !name?.firstName ||
-    !name?.lastName
-  ) {
-    res.status(400).json({
-      message:
-        'Username, email, password, role, and name (with firstName and lastName) are required',
-    });
-  }
+  const { username, email, password, role, name, gender } = req.body;
+  console.log(req.body);
 
   try {
-    await authService.register(username, email, password, role, name);
+    await authService.register(username, email, gender, password, role, name);
     res.status(201).json({
       message: 'User registered successfully',
     });

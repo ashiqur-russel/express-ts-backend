@@ -33,14 +33,11 @@ export class AuthService {
   async register(
     username: string,
     email: string,
+    gender: string,
     password: string,
     role: string,
     name: object,
   ): Promise<void> {
-    if (!username || !email || !password) {
-      throw new Error('Username, email, and password are required');
-    }
-
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       throw new Error(
@@ -56,8 +53,9 @@ export class AuthService {
       username,
       email,
       password: hashedPassword,
+      gender,
       role,
-      name: name,
+      name,
     });
 
     await user.save();

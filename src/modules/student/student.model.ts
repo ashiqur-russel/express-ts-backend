@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { IStudent, IGuardianInfo } from './student.interface';
+import { IStudent, GuardianInfo } from './student.interface';
 
-export const GuardianInfoSchema: Schema<IGuardianInfo> = new Schema({
+export const GuardianInfoSchema: Schema<GuardianInfo> = new Schema({
   fatherName: { type: String, default: null },
   motherName: { type: String, default: null },
   contactNo: { type: String, default: null },
