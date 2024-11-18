@@ -72,8 +72,12 @@ The following diagram represents the flow of data and interactions in the backen
     └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
 ```
 
-The Following diagram represents Data flow of the Client to Service and Service to Client
-![Data_Flow_Diagram_res_req](https://github.com/user-attachments/assets/68ec1297-a05e-4733-9ca2-19b58ddcb8ab)
+
+<p>The following diagram represents Data flow of the Client to Service and Service to Client</p>
+
+
+![Data Flow Diagram Whiteboard in Dark Yellow Light Yellow Black Monochromatic Style](https://github.com/user-attachments/assets/c932a382-0dfe-412d-ab5b-fdcb647da657)
+
 
 
 ## API Endpoints
