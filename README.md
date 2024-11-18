@@ -72,6 +72,10 @@ The following diagram represents the flow of data and interactions in the backen
     └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
 ```
 
+The Following diagram represents Data flow of the Client to Service and Service to Client
+![Data_Flow_Diagram_res_req](https://github.com/user-attachments/assets/68ec1297-a05e-4733-9ca2-19b58ddcb8ab)
+
+
 ## API Endpoints
 
 **Register New User**
@@ -116,7 +120,7 @@ The following diagram represents the flow of data and interactions in the backen
 - POST /auth/login
 - Requesr Body
 
-```bash
+```json
     {
       "email": "admin@example.com",
       "password": "password123"
@@ -125,7 +129,7 @@ The following diagram represents the flow of data and interactions in the backen
 
 - Response
 
-```bash
+```json
     {
       "message": "Login successful",
       "token": "jwt_token_here"
