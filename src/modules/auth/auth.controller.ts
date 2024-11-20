@@ -30,13 +30,13 @@ export const userLogin = async (req: Request, res: Response) => {
 };
 
 export const registerNewUser = async (req: Request, res: Response) => {
-  const { username, email, password, role, name, gender } = req.body;
-  console.log(req.body);
+  const user = req.body;
 
   try {
-    await authService.register(username, email, gender, password, role, name);
+    const userData = await authService.register(user);
     res.status(201).json({
       message: 'User registered successfully',
+      user: userData,
     });
   } catch (error: any) {
     res.status(400).json({ message: error.message });

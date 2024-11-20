@@ -4,6 +4,9 @@ import { User } from '../user/user.model';
 import config from '../../config';
 import { Student } from '../student/student.model';
 import { Tutor } from '../tutor/tutor.model';
+import { IUser } from '../user/user.interface';
+import { IStudent } from '../student/student.interface';
+import { ITutor } from '../tutor/tutor.interface';
 
 export class AuthService {
   async login(email: string, password: string): Promise<string> {
@@ -30,14 +33,8 @@ export class AuthService {
     return token;
   }
 
-  async register(
-    username: string,
-    email: string,
-    gender: string,
-    password: string,
-    role: string,
-    name: object,
-  ): Promise<void> {
+  async register(userData: IStudent | ITutor): Promise<IUser | undefined> {
+    const { email, username, role, password } = userData;
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       throw new Error(
@@ -47,15 +44,11 @@ export class AuthService {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, Number(config.salt));
 
     const user = new User({
-      username,
-      email,
+      ...userData,
       password: hashedPassword,
-      gender,
-      role,
-      name,
     });
 
     await user.save();
@@ -64,12 +57,12 @@ export class AuthService {
       const newStudent = new Student({
         userId: user._id,
       });
-      await newStudent.save();
+      return await newStudent.save();
     } else if (role === 'tutor') {
       const newTutor = new Tutor({
         userId: user._id,
       });
-      await newTutor.save();
+      return await newTutor.save();
     }
   }
 
