@@ -7,3 +7,10 @@ declare global {
     }
   }
 }
+
+export interface MongoError extends Error {
+  code?: number;
+  keyValue?: Record<string, any>;
+  errmsg?: string;
+  errors?: Record<string, any>;
+}

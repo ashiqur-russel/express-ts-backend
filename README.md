@@ -62,8 +62,6 @@ src/
 ├── server.ts                     # Application entry point
 ```
 
-## **How It Works**
-
 The following diagram represents the flow of data and interactions in the backend:
 
 ```plaintext
