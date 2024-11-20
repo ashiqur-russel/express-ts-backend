@@ -44,7 +44,7 @@ export class AuthService {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, Number(config.salt));
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
       ...userData,

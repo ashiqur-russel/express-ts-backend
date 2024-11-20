@@ -13,4 +13,12 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const user = await userService.deleteUser(req.params.id);
+    res.status(200).json({ user: user });
+  } catch (error: any) {
+    res.status(401).json({ message: error.message });
+  }
+};
 export default router;

@@ -70,13 +70,9 @@ The following diagram represents the flow of data and interactions in the backen
     └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
 ```
 
-
 <p>The following diagram represents Data flow of the Client to Service and Service to Client</p>
 
-
 ![Data Flow Diagram Whiteboard in Dark Yellow Light Yellow Black Monochromatic Style](https://github.com/user-attachments/assets/c932a382-0dfe-412d-ab5b-fdcb647da657)
-
-
 
 ## API Endpoints
 
@@ -123,19 +119,19 @@ The following diagram represents the flow of data and interactions in the backen
 - Requesr Body
 
 ```json
-    {
-      "email": "admin@example.com",
-      "password": "password123"
-    }
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
 ```
 
 - Response
 
 ```json
-    {
-      "message": "Login successful",
-      "token": "jwt_token_here"
-    }
+{
+  "message": "Login successful",
+  "token": "jwt_token_here"
+}
 ```
 
 **Fetch All Users**

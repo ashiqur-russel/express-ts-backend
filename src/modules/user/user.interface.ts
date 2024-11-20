@@ -11,4 +11,5 @@ export interface IUser {
   role: 'student' | 'tutor' | 'admin';
   bloogGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   address?: string;
+  isDeleted: boolean;
 }

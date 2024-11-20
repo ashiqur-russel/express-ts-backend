@@ -9,8 +9,9 @@ const AddressSchema: Schema = new Schema({
   locationArea: { type: String, default: null },
 });
 
-const UserSchema: Schema<IUserDocument> = new Schema({
+export const UserSchema: Schema<IUserDocument> = new Schema({
   username: { type: String, required: true },
+  isDeleted: { type: Boolean, required: false, default: false },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   gender: { type: String, enum: ['male', 'female'], required: true },
