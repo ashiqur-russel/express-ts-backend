@@ -42,4 +42,9 @@ export const UserSchema: Schema<IUserDocument> = new Schema({
   },
 });
 
+UserSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 export const User = mongoose.model<IUserDocument>('User', UserSchema);

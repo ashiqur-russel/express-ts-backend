@@ -5,7 +5,7 @@ import { RoleGuard } from '../../guard/role.guard';
 
 const router = Router();
 
-router.get('/', AuthGuard, RoleGuard('admin'), getAllUsers);
+router.get('/', AuthGuard, RoleGuard('student'), getAllUsers);
 router.delete('/:id', AuthGuard, RoleGuard('student'), deleteUser);
 
 export default router;
